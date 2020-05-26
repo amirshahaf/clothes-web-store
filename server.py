@@ -5,7 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user, logout_user
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = 'static/images'
+MYDIR = os.path.dirname(__file__)
+UPLOAD_FOLDER = 'static/images/'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app = Flask(__name__)
@@ -104,7 +105,7 @@ def upload():
         flash(f' {name}נוסף בהצלחה ')
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.join(MYDIR + "/" + app.config['UPLOAD_FOLDER'], filename))
             return redirect('/')
     return 'hello'
 
